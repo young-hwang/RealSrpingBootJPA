@@ -8,6 +8,10 @@ public class RealSpringBootJpaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RealSpringBootJpaApplication.class, args);
+
+		Hello hello = new Hello();
+		hello.setData("hello");
+		System.out.println("hello.getData() = " + hello.getData());
 	}
 
 }
