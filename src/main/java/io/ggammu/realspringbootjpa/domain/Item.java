@@ -4,29 +4,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
-public class OrderItem {
+public abstract class Item {
 
     @Id
     @GeneratedValue
-    @Column(name = "order_item_id")
+    @Column(name = "item_id")
     private Long id;
 
-    private Item item;
+    private String name;
+    
+    private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    private int orderPrice;
-
-    private int count;
+    private int stockQuantity;
 
 }
