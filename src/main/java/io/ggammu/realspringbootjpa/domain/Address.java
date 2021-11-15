@@ -1,7 +1,13 @@
 package io.ggammu.realspringbootjpa.domain;
 
 import javax.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Address {
 
