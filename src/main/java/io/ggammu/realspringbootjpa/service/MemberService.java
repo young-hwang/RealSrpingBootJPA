@@ -14,7 +14,7 @@ public class MemberService {
     private MemberRepository memberRepository;
 
     @Autowired
-    public void setMemberRepository(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
