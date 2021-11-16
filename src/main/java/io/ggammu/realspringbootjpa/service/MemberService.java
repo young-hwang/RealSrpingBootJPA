@@ -3,20 +3,17 @@ package io.ggammu.realspringbootjpa.service;
 import io.ggammu.realspringbootjpa.domain.Member;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Service
 public class MemberService {
 
-    private MemberRepository memberRepository;
-
-    @Autowired
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    private final MemberRepository memberRepository;
 
     // 회원 가입
     @Transactional
