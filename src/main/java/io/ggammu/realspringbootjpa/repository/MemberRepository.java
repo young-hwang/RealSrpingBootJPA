@@ -6,16 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
 @Repository
 public class MemberRepository {
 
-    @PersistenceContext // entityManger 주입
-    private EntityManager em;
-
-    @PersistenceUnit // entityMangerFacgtory 주입
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManager em;
 
     public void save(Member member) {
         em.persist(member);
