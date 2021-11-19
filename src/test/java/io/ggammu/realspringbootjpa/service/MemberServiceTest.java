@@ -1,13 +1,14 @@
 package io.ggammu.realspringbootjpa.service;
 
-import com.sun.java.util.jar.pack.Package;
 import io.ggammu.realspringbootjpa.domain.Member;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,17 +24,37 @@ class MemberServiceTest {
     MemberRepository memberRepository;
 
     @Test
+    @Rollback(false)
     public void 회원가입() throws Exception{
         //given
         Member member = new Member();
         member.setName("hwang");
 
         //when
+        Long savedId = memberService.join(member);
 
         //then
+        assertThat(member).isEqualTo(memberService.findOne(savedId));
     }
 
     @Test
     void 중복_회원_예외() throws Exception {
+        //given
+        Member member1 = new Member();
+        member1.setName("hwang");
+
+        Member member2 = new Member();
+        member2.setName("hwang");
+
+        //when
+        memberService.join(member1);
+        try {
+            memberService.join(member2);
+        } catch (IllegalStateException e) {
+            return;
+        }
+
+        //then
+        fail("예외가 발생해야 한다.");
     }
 }
