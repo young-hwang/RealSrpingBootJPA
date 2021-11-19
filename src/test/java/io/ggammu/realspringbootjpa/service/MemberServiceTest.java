@@ -4,6 +4,7 @@ import io.ggammu.realspringbootjpa.domain.Member;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ class MemberServiceTest {
         assertThat(member).isEqualTo(memberService.findOne(savedId));
     }
 
-    @Test
+    @Test()
     void 중복_회원_예외() throws Exception {
         //given
         Member member1 = new Member();
@@ -48,13 +49,11 @@ class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        try {
+        assertThrows(IllegalStateException.class, () -> {
             memberService.join(member2);
-        } catch (IllegalStateException e) {
-            return;
-        }
+        });
 
         //then
-        fail("예외가 발생해야 한다.");
+        //fail("예외가 발생해야 한다.");
     }
 }
