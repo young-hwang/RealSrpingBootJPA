@@ -1,6 +1,7 @@
 package io.ggammu.realspringbootjpa.service;
 
 import io.ggammu.realspringbootjpa.domain.Member;
+import io.ggammu.realspringbootjpa.exception.NotEnoughStockException;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -54,6 +55,6 @@ class MemberServiceTest {
         });
 
         //then
-        //fail("예외가 발생해야 한다.");
+
     }
 }
