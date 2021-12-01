@@ -98,4 +98,13 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    /**
+     * QueryDSL
+     * @param orderSearch
+     * @return
+     */
+    public List<Order> findAllByQueryDsl(OrderSearch orderSearch) {
+
+        return new ArrayList<>();
+    }
 }
