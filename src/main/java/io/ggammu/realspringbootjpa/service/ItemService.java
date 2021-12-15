@@ -1,5 +1,7 @@
 package io.ggammu.realspringbootjpa.service;
 
+import io.ggammu.realspringbootjpa.controller.BookForm;
+import io.ggammu.realspringbootjpa.domain.item.Book;
 import io.ggammu.realspringbootjpa.domain.item.Item;
 import io.ggammu.realspringbootjpa.repository.ItemRepository;
 import java.util.List;
@@ -27,4 +29,11 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
+    @Transactional
+    public void updateItem(Long id, BookForm param) {
+        Item item = itemRepository.findOne(id);
+        item.setName(param.getName());
+        item.setStockQuantity(param.getStockQuantity());
+        item.setPrice(param.getPrice());
+    }
 }
