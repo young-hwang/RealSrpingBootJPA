@@ -8,6 +8,8 @@ import io.ggammu.realspringbootjpa.domain.item.Item;
 import io.ggammu.realspringbootjpa.repository.ItemRepository;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
+import io.ggammu.realspringbootjpa.repository.OrderSearch;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,8 +53,16 @@ public class OrderService {
     }
 
     //검색
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrdersByCriteria(OrderSearch orderSearch) {
+        return orderRepository.findAllByCriteria(orderSearch);
+    }
+
+    public List<Order> findOrdersByString(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
+
+    public List<Order> findOrdersByQueryDsl(OrderSearch orderSearch) {
+        return orderRepository.findAllByQueryDsl(orderSearch);
+    }
 
 }
