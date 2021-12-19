@@ -37,7 +37,7 @@ public class OrderRepository {
      * @return
      */
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        String jpql = "select o from Order o join o.member m";
+        String jpql = "select o from Order o join o.member m ";
         boolean isFirstCondition = true;
 
         if (orderSearch.getOrderStatus() != null) {
@@ -45,7 +45,7 @@ public class OrderRepository {
                 jpql += "where ";
                 isFirstCondition = false;
             }
-            jpql += "o.status = :status";
+            jpql += "o.status = :status ";
         }
 
         if (StringUtils.hasText(orderSearch.getMemberName())) {
@@ -54,7 +54,7 @@ public class OrderRepository {
             } else {
                 jpql += "and ";
             }
-            jpql += "m.name like :name";
+            jpql += "m.name like :name ";
         }
 
         TypedQuery<Order> query = em.createQuery(jpql, Order.class);

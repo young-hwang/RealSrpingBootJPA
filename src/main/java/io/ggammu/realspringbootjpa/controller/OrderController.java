@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,6 +49,12 @@ public class OrderController {
     public String orders(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
         model.addAttribute("orders", orderService.findOrdersByString(orderSearch));
         return "/order/orderList";
+    }
+
+    @PostMapping("/orders/{id}/cancel")
+    public String cancel(@PathVariable Long id) {
+        orderService.cancelOrder(id);
+        return "redirect:/";
     }
 
 }
