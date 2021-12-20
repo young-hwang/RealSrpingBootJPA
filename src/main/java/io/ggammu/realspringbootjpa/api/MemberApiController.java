@@ -22,6 +22,14 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    @PostMapping("/api/v2/members")
+    public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request) {
+        Member member = new Member();
+        member.setName(request.getName());
+        Long id = memberService.join(member);
+        return new CreateMemberResponse(id);
+    }
+
     @Data
     static class CreateMemberResponse {
         private Long id;
@@ -31,4 +39,8 @@ public class MemberApiController {
         }
     }
 
+    @Data
+    static class CreateMemberRequest {
+        private String name;
+    }
 }
