@@ -3,6 +3,7 @@ package io.ggammu.realspringbootjpa.api;
 import io.ggammu.realspringbootjpa.domain.Member;
 import io.ggammu.realspringbootjpa.service.MemberService;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -29,15 +30,23 @@ public class MemberApiController {
 
     @GetMapping("/api/v2/members")
     public Result membersV2() {
-        return new Result(memberService.findMembers());
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream().map(m -> new MemberDto(m.getName()))
+                .collect(Collectors.toList());
+
+        return new Result(collect);
     }
 
     @Data
     @AllArgsConstructor
     static class Result<T> {
-
         private T data;
+    }
 
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
     }
 
     @PostMapping("/api/v1/members")
