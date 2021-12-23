@@ -21,6 +21,7 @@ public class InitDb {
     @PostConstruct
     public void init() {
         initService.dbInit();
+        initService.dbInit2();
     }
 
     @RequiredArgsConstructor
@@ -36,25 +37,48 @@ public class InitDb {
             member.setAddress(new Address("부산", "1", "111-111"));
             entityManager.persist(member);
 
-            Book book1 = new Book();
-            book1.setName("Clean Code");
-            book1.setPrice(100000);
-            book1.setStockQuantity(100);
+            Book book1 = createBook("Clean Code", 100000, 100);
             entityManager.persist(book1);
 
-            Book book2 = new Book();
-            book2.setName("TDD");
-            book2.setPrice(20000);
-            book2.setStockQuantity(10);
+            Book book2 = createBook("TDD", 20000, 10);
             entityManager.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
 
             Delivery delivery = new Delivery();
+            delivery.setAddress(member.getAddress());
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             entityManager.persist(order);
         }
 
+        public void dbInit2() {
+            Member member = new Member();
+            member.setName("UserB");
+            member.setAddress(new Address("양산", "1", "211-211"));
+            entityManager.persist(member);
+
+            Book book1 = createBook("Best Blog", 100000, 100);
+            entityManager.persist(book1);
+
+            Book book2 = createBook("TDD", 20000, 10);
+            entityManager.persist(book2);
+
+            OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
+            OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
+
+            Delivery delivery = new Delivery();
+            delivery.setAddress(member.getAddress());
+            Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
+            entityManager.persist(order);
+        }
+
+        private Book createBook(String name, int price, int stockQuantity) {
+            Book book1 = new Book();
+            book1.setName(name);
+            book1.setPrice(price);
+            book1.setStockQuantity(stockQuantity);
+            return book1;
+        }
     }
 }
