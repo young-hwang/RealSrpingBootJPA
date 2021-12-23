@@ -1,7 +1,10 @@
 package io.ggammu.realspringbootjpa;
 
 import io.ggammu.realspringbootjpa.domain.Address;
+import io.ggammu.realspringbootjpa.domain.Delivery;
 import io.ggammu.realspringbootjpa.domain.Member;
+import io.ggammu.realspringbootjpa.domain.Order;
+import io.ggammu.realspringbootjpa.domain.OrderItem;
 import io.ggammu.realspringbootjpa.domain.item.Book;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -44,6 +47,13 @@ public class InitDb {
             book2.setPrice(20000);
             book2.setStockQuantity(10);
             entityManager.persist(book2);
+
+            OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
+            OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
+
+            Delivery delivery = new Delivery();
+            Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
+            entityManager.persist(order);
         }
 
     }

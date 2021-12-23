@@ -37,7 +37,7 @@ public class OrderRepository {
      * @return
      */
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        String jpql = "select o from Order o join o.member m ";
+        String jpql = "select o from Order o join fetch o.member m join fetch o.orderItems i join fetch i.item";
         boolean isFirstCondition = true;
 
         if (orderSearch.getOrderStatus() != null) {

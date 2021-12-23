@@ -41,7 +41,8 @@ public class OrderService {
 
         //주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);
-        orderRepository.save(order);
+//        orderRepository.save(order);
+//        List<OrderItem> findOrderItemes = order.getOrderItems();
         return order.getId();
     }
 
