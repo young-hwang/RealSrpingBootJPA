@@ -1,5 +1,6 @@
 package io.ggammu.realspringbootjpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.ggammu.realspringbootjpa.domain.item.Item;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
