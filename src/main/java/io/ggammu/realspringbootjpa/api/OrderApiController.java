@@ -3,10 +3,12 @@ package io.ggammu.realspringbootjpa.api;
 import io.ggammu.realspringbootjpa.domain.Address;
 import io.ggammu.realspringbootjpa.domain.Order;
 import io.ggammu.realspringbootjpa.domain.OrderStatus;
+import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
 import io.ggammu.realspringbootjpa.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,13 @@ public class OrderApiController {
         List<SimpleOrderDto> simpleOrderDtos = orders.stream()
                 .map(SimpleOrderDto::new)
                 .collect(toList());
+        return simpleOrderDtos;
+    }
+
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> orderV3() {
+        List<Order> orders = orderService.findAllWithMemberDelivery();
+        List<SimpleOrderDto> simpleOrderDtos = orders.stream().map(SimpleOrderDto::new).collect(toList());
         return simpleOrderDtos;
     }
 
