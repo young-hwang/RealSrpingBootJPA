@@ -12,8 +12,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.namedparam.NamedParameterBatchUpdateUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -113,4 +111,13 @@ public class OrderRepository {
                 "join fetch o.member m " +
                 "join fetch o.delivery d ", Order.class).getResultList();
     }
+
+    public List<OrderSimpleQueryDto> findAllOrderDto() {
+        return em.createQuery(
+                "select new io.ggammu.realspringbootjpa.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o " +
+                "join o.member m " +
+                "join o.delivery d ", OrderSimpleQueryDto.class)
+                .getResultList();
+    }
+
 }

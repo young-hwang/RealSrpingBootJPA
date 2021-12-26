@@ -5,6 +5,7 @@ import io.ggammu.realspringbootjpa.domain.Order;
 import io.ggammu.realspringbootjpa.domain.OrderStatus;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
+import io.ggammu.realspringbootjpa.repository.OrderSimpleQueryDto;
 import io.ggammu.realspringbootjpa.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +52,11 @@ public class OrderApiController {
         List<Order> orders = orderService.findAllWithMemberDelivery();
         List<SimpleOrderDto> simpleOrderDtos = orders.stream().map(SimpleOrderDto::new).collect(toList());
         return simpleOrderDtos;
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> orderV4() {
+        return orderService.findAllOrderDto();
     }
 
     @Data
