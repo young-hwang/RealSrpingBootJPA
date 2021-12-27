@@ -1,4 +1,4 @@
-package io.ggammu.realspringbootjpa.repository;
+package io.ggammu.realspringbootjpa.repository.order.simplequery;
 
 import io.ggammu.realspringbootjpa.domain.Address;
 import io.ggammu.realspringbootjpa.domain.Order;

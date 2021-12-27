@@ -9,11 +9,10 @@ import io.ggammu.realspringbootjpa.repository.ItemRepository;
 import io.ggammu.realspringbootjpa.repository.MemberRepository;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
-import io.ggammu.realspringbootjpa.repository.OrderSimpleQueryDto;
+import io.ggammu.realspringbootjpa.repository.order.simplequery.OrderSimpleQueryDto;
 import io.ggammu.realspringbootjpa.repository.order.simplequery.OrderSimpleQueryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,4 +77,5 @@ public class OrderService {
     public List<OrderSimpleQueryDto> findAllOrderDto() {
         return orderSimpleQueryRepository.findAllOrderDto();
     }
+
 }

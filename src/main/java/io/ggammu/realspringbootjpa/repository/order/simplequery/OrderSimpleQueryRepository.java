@@ -1,6 +1,5 @@
 package io.ggammu.realspringbootjpa.repository.order.simplequery;
 
-import io.ggammu.realspringbootjpa.repository.OrderSimpleQueryDto;
 import java.util.List;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ public class OrderSimpleQueryRepository {
 
     public List<OrderSimpleQueryDto> findAllOrderDto() {
         return em.createQuery(
-                        "select new io.ggammu.realspringbootjpa.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o " +
+                        "select new io.ggammu.realspringbootjpa.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o " +
                                 "join o.member m " +
                                 "join o.delivery d ", OrderSimpleQueryDto.class)
                 .getResultList();
