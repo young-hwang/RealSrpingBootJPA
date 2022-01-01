@@ -40,6 +40,14 @@ public class OrderApiController {
         return orderDtos;
     }
 
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> orderv3() {
+        List<Order> all = orderRepository.findAllWithItem(new OrderSearch());
+        List<OrderDto> orderDtos = all.stream().map(OrderDto::new).collect(Collectors.toList());
+
+        return orderDtos;
+    }
+
     @Getter
     static class OrderDto {
 
@@ -48,7 +56,7 @@ public class OrderApiController {
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
         private Address address;
-        private List<OrderItem> orderItems;
+        private List<OrderItemDto> orderItems;
 
         public OrderDto(Order order) {
             this.id = order.getId();
@@ -56,8 +64,23 @@ public class OrderApiController {
             this.orderDate = order.getOrderDate();
             this.orderStatus = order.getStatus();
             this.address = order.getDelivery().getAddress();
-            order.getOrderItems().stream().forEach(o -> o.getItem());
-            this.orderItems = order.getOrderItems();
+            this.orderItems = order.getOrderItems().stream()
+                            .map(OrderItemDto::new).collect(Collectors.toList());
+        }
+
+    }
+
+    @Getter
+    static class OrderItemDto {
+
+        private String itemName;
+        private int orderPrice;
+        private int count;
+
+        public OrderItemDto(OrderItem orderItem) {
+            this.itemName = orderItem.getItem().getName();
+            this.orderPrice = orderItem.getOrderPrice();
+            this.count = orderItem.getCount();
         }
 
     }
