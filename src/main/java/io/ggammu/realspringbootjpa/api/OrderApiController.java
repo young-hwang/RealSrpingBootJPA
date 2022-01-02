@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -49,12 +51,15 @@ public class OrderApiController {
     }
 
     @GetMapping("/api/v3.1/orders")
-    public List<OrderDto> orderv3page() {
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
+    public List<OrderDto> orderv3page(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        List<Order> all = orderRepository.findAllWithMemberDelivery(offset, limit);
         List<OrderDto> orderDtos = all.stream().map(OrderDto::new).collect(Collectors.toList());
 
         return orderDtos;
     }
+
     @Getter
     static class OrderDto {
 
