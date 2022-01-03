@@ -6,6 +6,7 @@ import io.ggammu.realspringbootjpa.domain.OrderItem;
 import io.ggammu.realspringbootjpa.domain.OrderStatus;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
+import io.ggammu.realspringbootjpa.repository.order.query.OrderFlatDto;
 import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryDto;
 import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryRepository;
 import java.time.LocalDateTime;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,6 +66,16 @@ public class OrderApiController {
     @GetMapping("/api/v4/orders")
     public List<OrderQueryDto> orderv4() {
         return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> orderv5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> orderv6() {
+        return orderQueryRepository.findAllByDto_flat();
     }
 
     @Getter
