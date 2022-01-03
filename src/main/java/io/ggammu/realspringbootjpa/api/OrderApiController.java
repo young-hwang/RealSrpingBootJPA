@@ -6,6 +6,8 @@ import io.ggammu.realspringbootjpa.domain.OrderItem;
 import io.ggammu.realspringbootjpa.domain.OrderStatus;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
+import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryDto;
+import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> orderV1() {
@@ -58,6 +61,11 @@ public class OrderApiController {
         List<OrderDto> orderDtos = all.stream().map(OrderDto::new).collect(Collectors.toList());
 
         return orderDtos;
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> orderv4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 
     @Getter
