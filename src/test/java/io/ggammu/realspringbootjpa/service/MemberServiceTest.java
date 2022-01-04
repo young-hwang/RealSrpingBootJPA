@@ -1,10 +1,8 @@
 package io.ggammu.realspringbootjpa.service;
 
 import io.ggammu.realspringbootjpa.domain.Member;
-import io.ggammu.realspringbootjpa.exception.NotEnoughStockException;
-import io.ggammu.realspringbootjpa.repository.MemberRepository;
+import io.ggammu.realspringbootjpa.repository.MemberRepositoryOld;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +21,7 @@ class MemberServiceTest {
     MemberService memberService;
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberRepositoryOld memberRepository;
 
     @Test
     @Rollback(false)

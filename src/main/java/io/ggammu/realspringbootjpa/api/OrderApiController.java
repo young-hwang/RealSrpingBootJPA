@@ -9,6 +9,7 @@ import io.ggammu.realspringbootjpa.repository.OrderSearch;
 import io.ggammu.realspringbootjpa.repository.order.query.OrderFlatDto;
 import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryDto;
 import io.ggammu.realspringbootjpa.repository.order.query.OrderQueryRepository;
+import io.ggammu.realspringbootjpa.service.query.OrderQueryService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,16 +25,11 @@ public class OrderApiController {
 
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
+    private final OrderQueryService orderQueryService;
 
     @GetMapping("/api/v1/orders")
     public List<Order> orderV1() {
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
-        for (Order order : all) {
-            order.getMember().getName();
-            order.getDelivery().getAddress();
-            List<OrderItem> orderItems = order.getOrderItems();
-            orderItems.stream().forEach(o -> o.getItem().getName());
-        }
+        List<Order> all = orderQueryService.findAllByString(new OrderSearch());
         return all;
     }
 

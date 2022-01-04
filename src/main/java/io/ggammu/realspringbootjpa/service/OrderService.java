@@ -6,7 +6,7 @@ import io.ggammu.realspringbootjpa.domain.Order;
 import io.ggammu.realspringbootjpa.domain.OrderItem;
 import io.ggammu.realspringbootjpa.domain.item.Item;
 import io.ggammu.realspringbootjpa.repository.ItemRepository;
-import io.ggammu.realspringbootjpa.repository.MemberRepository;
+import io.ggammu.realspringbootjpa.repository.MemberRepositoryOld;
 import io.ggammu.realspringbootjpa.repository.OrderRepository;
 import io.ggammu.realspringbootjpa.repository.OrderSearch;
 import io.ggammu.realspringbootjpa.repository.order.simplequery.OrderSimpleQueryDto;
@@ -25,7 +25,7 @@ public class OrderService {
 
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryOld memberRepository;
 
     private final ItemRepository itemRepository;
 
