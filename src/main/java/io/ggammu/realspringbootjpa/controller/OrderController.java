@@ -7,7 +7,6 @@ import io.ggammu.realspringbootjpa.service.ItemService;
 import io.ggammu.realspringbootjpa.service.MemberService;
 import io.ggammu.realspringbootjpa.service.OrderService;
 import java.util.List;
-import javax.jws.WebParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +46,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String orders(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-        model.addAttribute("orders", orderService.findOrdersByString(orderSearch));
+        model.addAttribute("orders", orderService.findOrdersByQueryDsl(orderSearch));
         return "/order/orderList";
     }
 

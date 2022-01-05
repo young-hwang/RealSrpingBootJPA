@@ -1,6 +1,11 @@
 package io.ggammu.realspringbootjpa.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.ggammu.realspringbootjpa.domain.Order;
+import io.ggammu.realspringbootjpa.domain.OrderStatus;
+import io.ggammu.realspringbootjpa.domain.QMember;
+import io.ggammu.realspringbootjpa.domain.QOrder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -102,8 +107,32 @@ public class OrderRepository {
      * @return
      */
     public List<Order> findAllByQueryDsl(OrderSearch orderSearch) {
+        QOrder order = QOrder.order;
+        QMember member = QMember.member;
 
-        return new ArrayList<>();
+        JPAQueryFactory query = new JPAQueryFactory(em);
+
+        return query.select(order)
+                .from(order)
+                .join(order.member, member)
+                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch, member))
+                .limit(1000)
+                .fetch();
+    }
+
+    private BooleanExpression nameLike(OrderSearch orderSearch, QMember member) {
+        if (!StringUtils.hasText(orderSearch.getMemberName())) {
+            return null;
+        }
+
+        return member.name.like(orderSearch.getMemberName());
+    }
+
+    private BooleanExpression statusEq(OrderStatus orderStatus) {
+        if (orderStatus == null) {
+            return null;
+        }
+        return QOrder.order.status.eq(orderStatus);
     }
 
     public List<Order> findAllWithMemberDelivery() {
